@@ -63,9 +63,8 @@ const createCard = () => {
     parentDiv.appendChild(newDiv);
   }
 };
-const printCard = arr => {
-  let parentDiv = document.getElementById("cardcontainer");
-  parentDiv.innerHTML = "";
+const printCard = (arr, location) => {
+  let parentDiv = (parentDiv.innerHTML = "");
 
   for (let i = 0; i < arr.length; i++) {
     let print2 = arr[i];
@@ -146,10 +145,10 @@ window.onload = function() {
   let button2 = document.getElementById("button2");
   button2.addEventListener("click", function() {
     bubbleSort(sortArr);
-    printCard(sortArr);
     sortArr = [];
   });
-  const bubbleSort = arr => {
+  const bubbleSort = async arr => {
+    let iterationList = document.querySelector("#iterationList");
     let wall = arr.length - 1; //we start the wall at the end of the array
     while (wall > 0) {
       let index = 0;
@@ -160,6 +159,11 @@ window.onload = function() {
           arr[index] = arr[index + 1];
           arr[index + 1] = aux;
         }
+        const newIteration = document.createElement("li");
+        newIteration.id = "iteration" + (index + 1);
+        printCard(arr, newIteration);
+        iterationList.appendChild(newIteration);
+
         index++;
       }
       wall--; //decrease the wall for optimization
