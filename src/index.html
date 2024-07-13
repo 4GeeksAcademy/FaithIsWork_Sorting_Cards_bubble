@@ -22,7 +22,7 @@
   </head>
   <body class="bg-success">
     <form class="ml-4 mt-4 d-flex">
-      <label class="ml-4 mt-2">Original:</label>
+      <label class="ml-4 mt-2" for="input">Original:</label>
       <input
         class="ml-3 rounded"
         style="width: 30px;"
@@ -37,13 +37,19 @@
         Sort
       </button>
     </form>
-    <div class="container" id="">
-      <div class="col-1"></div>
-      <div id="cardcontainer" class="d-flex"></div>
-      <div class="fixed-bottom p-4">
-        Made with ❤️ by Hernest Theodore
-        <a href="https://www.4geeksacademy.com">4Geeks Academy</a>
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div id="cardcontainer" class="d-flex"></div>
+          <ol id="iterationList" class="d-flex">
+            <li></li>
+          </ol>
+        </div>
       </div>
+    </div>
+    <div class="fixed-bottom p-4">
+      Made with :heart: by Hernest Theodore
+      <a href="https://www.4geeksacademy.com">4Geeks Academy</a>
     </div>
     <script src="script.js"></script>
     <script
