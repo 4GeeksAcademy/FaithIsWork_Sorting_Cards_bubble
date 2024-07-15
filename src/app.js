@@ -4,7 +4,7 @@ import "./style.css";
 var sortArr = [];
 const createCard = () => {
   let num = document.querySelector("#input").value;
-  console.log(num, "here");
+  sortArr = [];
   let card = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"];
   let suit = ["♠", "♥", "♣", "♦"];
   let parentDiv = document.getElementById("cardcontainer");
@@ -12,9 +12,9 @@ const createCard = () => {
   for (let i = 0; i < num; i++) {
     let randomCard = card[Math.floor(Math.random() * card.length)];
     let randomSuit = suit[Math.floor(Math.random() * suit.length)];
-    sortArr.push(card.indexOf(randomCard));
+    sortArr.push({ number: card.indexOf(randomCard), suit: randomSuit });
     let color = "";
-    if (randomSuit == "♥" || randomSuit == ":diamonds:") {
+    if (randomSuit == "♥" || randomSuit == "♦") {
       color = "text-danger";
     }
     let myString = `
@@ -45,7 +45,6 @@ const printCard = (arr, location) => {
   let parentDiv = document.querySelector(location);
   parentDiv.innerHTML = "";
   for (let i = 0; i < arr.length; i++) {
-    let print2 = arr[i];
     let card = [
       "2",
       "3",
@@ -61,8 +60,10 @@ const printCard = (arr, location) => {
       "K",
       "A"
     ];
+    let print2 = card[arr[i].number];
+    console.log(i, card[i], print2);
     let suit = ["♠", "♥", "♣", "♦"];
-    let randomSuit = suit[Math.floor(Math.random() * suit.length)];
+    let randomSuit = arr[i].suit;
     let color = "";
     if (randomSuit == "♥" || randomSuit == "♦") {
       color = "text-danger";
@@ -75,7 +76,7 @@ const printCard = (arr, location) => {
       </div>
       <div class="row">
         <div class="col-12 bg-white d-flex mr-auto justify-content-center" style="height: 40px">
-          <p class="h2 center ${color}">${card[print2]}</p>
+          <p class="h2 center ${color}">${print2}</p>
         </div>
       </div>
       <div class="row">
@@ -92,23 +93,28 @@ const printCard = (arr, location) => {
   }
 };
 const bubbleSort = arr => {
-  let iterationList = document.getElementById("iterationList");
+  //let iterationList = document.getElementById("iterationList");
   let wall = arr.length - 1; // we start the wall at the end of the array
+  let logNumber = 0;
   while (wall > 0) {
     let index = 0;
     while (index < wall) {
       // compare the adjacent positions, if the right one is bigger, we have to swap
-      if (arr[index] > arr[index + 1]) {
-        console.log(arr[index]);
+      if (arr[index].number > arr[index + 1].number) {
         let aux = arr[index];
         arr[index] = arr[index + 1];
         arr[index + 1] = aux;
       }
+      console.log(arr);
+      const newIteration = document.createElement("ol");
+      newIteration.id = "iteration" + (logNumber + 1).toString();
+      newIteration.classList.add("d-flex");
 
-      const newIteration = document.createElement("li");
-      newIteration.id = "iteration" + (index + 1).toString();
       iterationList.appendChild(newIteration);
-      printCard(arr, "#iteration" + (index + 1).toString());
+      printCard(arr, "#iteration" + (logNumber + 1).toString());
+
+      logNumber++;
+
       index++;
     }
     wall--; // decrease the wall for optimization
